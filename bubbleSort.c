@@ -1,26 +1,55 @@
 #include <stdio.h>
 
-#define NELEMS(x)  (sizeof(x) / sizeof((x)[0]))
+int temp;
 
-void print(char string[])
-{	
-	//int stringSize = sizeof(string) / sizeof(string[0]);
-	size_t stringSize = NELEMS(string);
-	printf("%d\n", stringSize);
-	for (int i=0; i < stringSize; i++)
+int printArray(int array[], int arraySize)
+{
+	for(int x=0; x < arraySize - 1; x++)
 	{
-		printf("%c", string[i]);
+		printf("%d, ", array[x]);
 	}
-	printf("\n");	
+
+	return 0;
 }
 
+int bubbleSort(int *pos1, int *pos2)
+{
+	if(*pos1 > *pos2)
+	{
+		temp = *pos1;
+		*pos1 = *pos2;
+		*pos2 = temp;
+	}
+
+	return 0;
+}
+
+int orderArray(int array[], int arraySize)
+{
+	for(int x=0; x < arraySize - 1; x++)
+	{
+		for (int y=0; y < arraySize - 1 - x; y++)
+		{
+			bubbleSort(&array[y], &array[y + 1]);
+		}
+	}
+
+	return 0;
+}
 
 int main(void)
 {
 	int array[] = {4, 5, 2, 7, 14, 54, 323, 6, 1, 3};
-	int arraySize = sizeof(array);
+	int arraySize = sizeof(array) / sizeof(array[0]);
 
-	char message[10] = "hola mundo";
-	print(message);
+	printf("Unordered array: \n");
+	printArray(array, arraySize);
+
+	orderArray(array, arraySize);
+
+	printf("\nOrdered array: \n");
+        printArray(array, arraySize);
+
+	return 0;
 
 }
